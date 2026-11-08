@@ -10,7 +10,7 @@ TOKEN = os.getenv("9107556235:AAGseGBm599qhWEmFvlu7kYoy8VwYBhQXCk")
 LK_TIME = ZoneInfo("Asia/Colombo")
 EXAM_DATETIME = datetime(2027, 8, 3, 8, 0, 0, tzinfo=LK_TIME)
 PHOTO_URL = "https://i.ibb.co/9kRD1Xcg/a86593bf-9b2f-4508-9e21-3091b744c7a8.png"
-CHANNEL_ID = "@Edulinkz"  # Channel eke username eka
+CHANNEL_ID = "@Edulinkz"
 CHANNEL_LINK = "https://t.me/Edulinkz"
 # ====================
 
@@ -48,13 +48,11 @@ async def check_joined(user_id, context):
         return False
 
 async def send_welcome(update, context):
-    # Join button + Check button
     keyboard = [
         [InlineKeyboardButton("📢 Join our Telegram Channel", url=CHANNEL_LINK)],
         [InlineKeyboardButton("✅ I Have Joined", callback_data="check_join")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    
     text = (
         "👋 Welcome to our Exam Day Count Bot! 🤍\n\n"
         "Bot eka use karanna kalin, apiwa follow karanna! 👇\n\n"
@@ -62,7 +60,6 @@ async def send_welcome(update, context):
         "2️⃣ Aye methanata enna\n"
         "3️⃣ 'I Have Joined' button eka click karanna"
     )
-    
     if update.message:
         await update.message.reply_photo(photo=PHOTO_URL, caption=text, reply_markup=reply_markup)
     else:
@@ -70,8 +67,6 @@ async def send_welcome(update, context):
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
-    
-    # Join wela da balanawa
     if await check_joined(user_id, context):
         chats = context.application.bot_data.setdefault("chats", set())
         chats.add(update.effective_chat.id)
@@ -86,12 +81,10 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     user_id = query.from_user.id
-
     if query.data == "check_join":
         if await check_joined(user_id, context):
             chats = context.application.bot_data.setdefault("chats", set())
             chats.add(query.message.chat.id)
-            # Pahala welcome message eka ain karala aluth eka yawanna
             await query.message.delete()
             await context.bot.send_photo(
                 chat_id=query.message.chat.id,
