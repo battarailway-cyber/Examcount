@@ -1,6 +1,6 @@
 import os
 import asyncio
-from datetime import datetime
+from datetime import datetime, time
 from zoneinfo import ZoneInfo
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
@@ -115,7 +115,7 @@ async def main():
     app.add_handler(CommandHandler("days", days))
     app.add_handler(CommandHandler("countdown", days))
     app.add_handler(CallbackQueryHandler(button_handler))
-    app.job_queue.run_daily(daily_countdown, time="00:30:00")
+    app.job_queue.run_daily(daily_countdown, time=time(hour=0, minute=30))
     print("Bot run wenawa...")
     await app.run_polling()
 
