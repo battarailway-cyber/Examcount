@@ -6,7 +6,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
 # ===== SETTINGS =====
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("9107556235:AAGseGBm599qhWEmFvlu7kYoy8VwYBhQXCk")
 LK_TIME = ZoneInfo("Asia/Colombo")
 EXAM_DATETIME = datetime(2027, 8, 3, 8, 0, 0, tzinfo=LK_TIME)
 PHOTO_URL = "https://i.ibb.co/9kRD1Xcg/a86593bf-9b2f-4508-9e21-3091b744c7a8.png"
