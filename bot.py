@@ -117,7 +117,10 @@ async def main():
     app.add_handler(CallbackQueryHandler(button_handler))
     app.job_queue.run_daily(daily_countdown, time=time(hour=0, minute=30))
     print("Bot run wenawa...")
-    await app.run_polling(close_loop=False)
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
+    await asyncio.Event().wait()
 
 if __name__ == "__main__":
     asyncio.run(main())
